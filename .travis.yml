@@ -21,7 +21,8 @@ install:
 
 # run the script for unit tests and builds
 script:
-- sudo -E sh ./Scripts/build.sh
+- sudo -E sh ./Scripts/test.sh
+- sudo -E sh ./Scripts/build.sh # A (paid) license is required to build
 
 # environment variables used in bash scripts
 env:
