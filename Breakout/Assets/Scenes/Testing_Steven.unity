@@ -211,7 +211,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4927076125427270, guid: 7e0a0c7c9b0ba78488e2e5eb0397f43e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.00838412
+      value: 5.08
       objectReference: {fileID: 0}
     - target: {fileID: 4927076125427270, guid: 7e0a0c7c9b0ba78488e2e5eb0397f43e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -238,6 +238,10 @@ Prefab:
       propertyPath: mainCam
       value: 
       objectReference: {fileID: 109000077}
+    - target: {fileID: 4927076125427270, guid: 7e0a0c7c9b0ba78488e2e5eb0397f43e, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7e0a0c7c9b0ba78488e2e5eb0397f43e, type: 2}
   m_IsPrefabParent: 0

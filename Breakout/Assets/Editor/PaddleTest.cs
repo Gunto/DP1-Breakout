@@ -48,7 +48,7 @@ public class PaddleTest {
 
         foreach (GameObject p in paddle)
         {
-            if (p.GetComponent<Camera>() == null)
+            if (p.GetComponent<PaddleMove>().mainCam == null)
             {
                 actual = false;
             }
@@ -74,11 +74,11 @@ public class PaddleTest {
         bool expected = true;
         bool actual = true;
 
-        Vector2 size = new Vector2(2.0f, 2.0f);
+        Vector3 size = new Vector3(2.0f, 2.0f, 2.0f);
 
         foreach (GameObject p in paddle)
         {
-            if (p.GetComponent<SpriteRenderer>().size != size)
+            if (p.transform.localScale != size)
             {
                 actual = false;
             }
