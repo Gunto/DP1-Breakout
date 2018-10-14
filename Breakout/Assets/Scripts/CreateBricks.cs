@@ -8,11 +8,13 @@ public class CreateBricks : MonoBehaviour {
     public float width, height;
     private GameObject brick;
     private SpriteRenderer spRen;
-    private Rect rect;
     private Vector2 scale;
     private Vector3 position;
     private Vector3 screenPosition;
     private Camera cam;
+
+    public int margin; //Gap from screen edge
+    public int padding; //Gap in between bricks
 
 	// Use this for initialization
 	void Start ()
@@ -39,12 +41,11 @@ public class CreateBricks : MonoBehaviour {
         spRen.drawMode = SpriteDrawMode.Sliced;
         spRen.size = scale;
         brick.transform.position = new Vector2(position.x + scale.x / 2, position.y);
-
     }
 
-    private Rect CreateRect()
+    private void LayoutBrickRow()
     {
-        rect = new Rect(0.0f, 0.0f, 100, 100);
-        return rect;
+
     }
+   
 }
