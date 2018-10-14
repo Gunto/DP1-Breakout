@@ -28,9 +28,27 @@ public class PaddleTest {
         bool expected = true;
         bool actual = true;
 
-        foreach (GameObject brick in paddle)
+        foreach (GameObject p in paddle)
         {
-            if (brick.GetComponent<BoxCollider2D>() == null)
+            if (p.GetComponent<BoxCollider2D>() == null)
+            {
+                actual = false;
+            }
+        }
+
+        Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void PaddleCameraExist()
+    {
+        GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
+        bool expected = true;
+        bool actual = true;
+
+        foreach (GameObject p in paddle)
+        {
+            if (p.GetComponent<Camera>() == null)
             {
                 actual = false;
             }
