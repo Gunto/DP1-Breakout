@@ -74,7 +74,7 @@ public class PaddleTest {
         bool expected = true;
         bool actual = false;
 
-        Vector3 size = new Vector3(2.0f, 2.0f, 2.0f);
+        Vector3 size = new Vector3(1.0f, 1.0f, 1.0f);
 
         foreach (GameObject p in paddle)
         {
