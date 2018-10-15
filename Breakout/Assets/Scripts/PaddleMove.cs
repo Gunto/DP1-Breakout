@@ -5,6 +5,7 @@ using UnityEngine;
 public class PaddleMove : MonoBehaviour {
 
     public Camera mainCam;
+    public float spd;
 
     private float camHeight, camWidth;
 
@@ -22,7 +23,7 @@ public class PaddleMove : MonoBehaviour {
             {
                 if (Input.GetKey(KeyCode.RightArrow))
                 {
-                    gameObject.transform.position -= new Vector3(-1f, 0, 0);
+                    gameObject.transform.position -= new Vector3(-0.1f * spd, 0, 0);
                 }
             }
 
@@ -30,7 +31,7 @@ public class PaddleMove : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                gameObject.transform.position -= new Vector3(1f, 0, 0);
+                gameObject.transform.position -= new Vector3(0.1f * spd, 0, 0);
             }
         }
     }
