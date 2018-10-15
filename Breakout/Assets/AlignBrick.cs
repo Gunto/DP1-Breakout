@@ -1,15 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AlignBrick : MonoBehaviour {
 
     public RectTransform rect;
-    private Vector2 rectPos;
+    private Vector3 rectPos;
+    private HorizontalLayoutGroup layout;
 
 	// Use this for initialization
 	void Start () {
-        rectPos = Camera.main.ScreenToWorldPoint(rect.rect.center);
+        //layout = rect.gameObject.GetComponentInParent<HorizontalLayoutGroup>();
+        //layout.enabled = false;
+        rectPos = rect.transform.position;
+        Debug.Log(rectPos);
         transform.position = rectPos;
 	}
 	
