@@ -17,12 +17,12 @@ public class PaddleMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.LogError(camWidth);
+        //Debug.LogError(camWidth);
         if (gameObject.transform.position.x < (camWidth / 2))
             {
                 if (Input.GetKey(KeyCode.RightArrow))
                 {
-                    gameObject.transform.position -= new Vector3(-0.1f, 0, 0);
+                    gameObject.transform.position -= new Vector3(-1f, 0, 0);
                 }
             }
 
@@ -30,7 +30,7 @@ public class PaddleMove : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                gameObject.transform.position -= new Vector3(0.1f, 0, 0);
+                gameObject.transform.position -= new Vector3(1f, 0, 0);
             }
         }
     }
