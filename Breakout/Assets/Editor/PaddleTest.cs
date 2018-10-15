@@ -11,11 +11,11 @@ public class PaddleTest {
     {
         GameObject[] paddle  = GameObject.FindGameObjectsWithTag("Paddle");
         bool expected = true;
-        bool actual = true;
+        bool actual = false;
 
-        if(paddle.Length <= 0)
+        if(paddle.Length > 0)
         {
-            actual = false;
+            actual = true;
         }
 
         Assert.AreEqual(expected, actual);
@@ -26,13 +26,13 @@ public class PaddleTest {
     {
         GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
         bool expected = true;
-        bool actual = true;
+        bool actual = false;
 
         foreach (GameObject p in paddle)
         {
-            if (p.GetComponent<BoxCollider2D>() == null)
+            if (p.GetComponent<BoxCollider2D>() != null)
             {
-                actual = false;
+                actual = true;
             }
         }
 
@@ -44,13 +44,13 @@ public class PaddleTest {
     {
         GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
         bool expected = true;
-        bool actual = true;
+        bool actual = false;
 
         foreach (GameObject p in paddle)
         {
-            if (p.GetComponent<PaddleMove>().mainCam == null)
+            if (p.GetComponent<PaddleMove>().mainCam != null)
             {
-                actual = false;
+                actual = true;
             }
         }
 
@@ -72,15 +72,15 @@ public class PaddleTest {
     {
         GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
         bool expected = true;
-        bool actual = true;
+        bool actual = false;
 
         Vector3 size = new Vector3(2.0f, 2.0f, 2.0f);
 
         foreach (GameObject p in paddle)
         {
-            if (p.transform.localScale != size)
+            if (p.transform.localScale == size)
             {
-                actual = false;
+                actual = true;
             }
         }
 
@@ -92,14 +92,14 @@ public class PaddleTest {
     {
         GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
         bool expected = true;
-        bool actual = true;
+        bool actual = false;
 
         foreach (GameObject p in paddle)
         {
             //NOTE: Will return true if editor camera can see the sprite
-            if (!p.GetComponent<SpriteRenderer>().isVisible)
+            if (p.GetComponent<SpriteRenderer>().isVisible)
             {
-                actual = false;
+                actual = true;
             }
         }
         Assert.AreEqual(expected, actual);
