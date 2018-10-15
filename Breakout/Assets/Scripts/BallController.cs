@@ -19,7 +19,7 @@ public class BallController : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("Fire1") && ballInPlay == false)
         {
-            rigid2D.velocity = Vector2.down * speed;
+            rigid2D.velocity = Vector2.up * speed;
             ballInPlay = true;
         }
 	}
