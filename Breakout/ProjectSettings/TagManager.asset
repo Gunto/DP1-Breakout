@@ -8,6 +8,7 @@ TagManager:
   - Brick
   - Wall
   - Ball
+  - Brick Manager
   layers:
   - Default
   - TransparentFX
