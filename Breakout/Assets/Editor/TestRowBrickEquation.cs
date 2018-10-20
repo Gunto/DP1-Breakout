@@ -12,8 +12,8 @@ namespace Assets.Editor
         [Test]
         public void TestHalfBPlusOne()
         {
-            int b = 13;
-            int r = 7;
+            int b = 9;
+            int r = 6;
             int expected = r;
             int actual = Mathf.CeilToInt((float)b / 2) + 1;
 

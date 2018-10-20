@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class CreateBricks : MonoBehaviour {
 
     private Camera cam;
     private Vector2 screenPos;
-    private List<List<GameObject>> bricks;
+    private List<List<GameObject>> bricks = new List<List<GameObject>>();
     private int rows;
     private int bricksInRow;
     private float rowLength;
@@ -17,6 +18,14 @@ public class CreateBricks : MonoBehaviour {
     private float startingY;
     private float offsetY;
     private Vector2 spriteScale;
+
+    public List<List<GameObject>> Bricks
+    {
+        get
+        {
+            return bricks;
+        }
+    }
 
 
     // Use this for initialization
@@ -37,6 +46,18 @@ public class CreateBricks : MonoBehaviour {
         offsetY = cam.WorldToScreenPoint(Vector3.Scale(spRen.size, spriteScale)).y + padding - (Screen.height / 2);
         bricks = CreateBrickRows(rows);
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.cyan;
+    //    foreach (List<GameObject> row in bricks)
+    //    {
+    //        foreach (GameObject g in row)
+    //        {
+    //            Gizmos.DrawWireCube(ScreenToWorld(g.transform.position), Vector3.Scale(spRen.size, spriteScale));
+    //        }
+    //    }
+    //}
 
     /// <summary>
     /// Calculates length of row in screen pixels
@@ -60,7 +81,9 @@ public class CreateBricks : MonoBehaviour {
         List<List<GameObject>> tempList = new List<List<GameObject>>(amount);
         for (int i = 0; i < amount; i++)
         {
-            tempList.Add(CreateRowArray(bricksInRow, rowLength, startingY - (offsetY * i)));
+            GameObject g = new GameObject();
+            g.name = "Row " + (i + 1);
+            tempList.Add(CreateRowArray(bricksInRow, rowLength, startingY - (offsetY * i), g));
         }
         return tempList;
     }
@@ -72,14 +95,14 @@ public class CreateBricks : MonoBehaviour {
     /// <param name="rowLength">How long the row is</param>
     /// <param name="y">Y co-ordinate in screen space</param>
     /// <returns></returns>
-    private List<GameObject> CreateRowArray(int amount, float rowLength, float y)
+    private List<GameObject> CreateRowArray(int amount, float rowLength, float y, GameObject parent)
     {
         List<GameObject> tempRow = new List<GameObject>(amount);
         float x = rowLength / amount;
         float startingPos = cam.WorldToScreenPoint(new Vector2(vRect.rect.xMin, 0)).x;
         for (int i = 0; i < amount; i++)
         {
-            tempRow.Add(CreateBrick(new Vector2((x * (i + 1)) - (x / 2) + startingPos, y)));
+            tempRow.Add(CreateBrick(new Vector2((x * (i + 1)) - (x / 2) + startingPos, y), parent));
         }
         return tempRow;
     }
@@ -89,11 +112,12 @@ public class CreateBricks : MonoBehaviour {
     /// </summary>
     /// <param name="position">Position of brick in screen space</param>
     /// <returns></returns>
-    private GameObject CreateBrick(Vector2 position)
+    private GameObject CreateBrick(Vector2 position, GameObject parent)
     {
         GameObject g = Instantiate(sprite) as GameObject;
         g.transform.position = ScreenToWorld(position) - Vector3.forward * cam.transform.position.z;
         g.transform.localScale = spriteScale;
+        g.transform.parent = parent.transform;
         return g;
     }
 
