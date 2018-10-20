@@ -4,80 +4,118 @@ using UnityEngine;
 
 public class CreateBricks : MonoBehaviour {
 
-    public Sprite sprite;
-    private GameObject brick;
-    private GameObject vertical;
-    private GameObject horizontal;
-    public GameObject layout;
+    private Camera cam;
+    private Vector2 screenPos;
+    private List<List<GameObject>> bricks;
+    private int rows;
+    private int bricksInRow;
+    private float rowLength;
+    private RectTransform vRect;
+    public GameObject sprite;
     private SpriteRenderer spRen;
-    public Vector2 scale;
-    private Transform[] row;
-    private Transform[] column;
-    public float scaleAmount = 1f;
+    private int margin, padding;
+    private float startingY;
+    private float offsetY;
+    private Vector2 spriteScale;
 
-	// Use this for initialization
-	void Start ()
+
+    // Use this for initialization
+    void Start()
     {
-        column = new Transform[layout.transform.childCount];
-        for (int i = 0; i < layout.transform.childCount; i++)
+        cam = Camera.main;
+        vRect = GetComponentInChildren<RectTransform>();
+        startingY = Screen.height * 0.85f;
+        margin = 15;
+        padding = 15;
+        rows = GetComponent<SetLayout>().rows;
+        bricksInRow = GetComponent<SetLayout>().bricksInRow;
+        spRen = sprite.GetComponent<SpriteRenderer>();
+        screenPos = new Vector2(Screen.width - margin, 0);
+        vRect.sizeDelta = ScreenToWorld(screenPos) * 2f;
+        rowLength = GetRowLength();
+        spriteScale = GetBrickScale();
+        offsetY = cam.WorldToScreenPoint(Vector3.Scale(spRen.size, spriteScale)).y + padding - (Screen.height / 2);
+        bricks = CreateBrickRows(rows);
+    }
+
+    /// <summary>
+    /// Calculates length of row in screen pixels
+    /// </summary>
+    /// <returns></returns>
+    private float GetRowLength()
+    {
+        Vector2 start = cam.WorldToScreenPoint(new Vector2(vRect.rect.xMin, 1));
+        Vector2 end = cam.WorldToScreenPoint(new Vector2(vRect.rect.xMax, 1));
+        Vector2 result = end - start;
+        return result.x;
+    }
+
+    /// <summary>
+    /// Creates all rows of bricks specified by an amount
+    /// </summary>
+    /// <param name="amount">How many rows to create</param>
+    /// <returns></returns>
+    private List<List<GameObject>> CreateBrickRows(int amount)
+    {
+        List<List<GameObject>> tempList = new List<List<GameObject>>(amount);
+        for (int i = 0; i < amount; i++)
         {
-            column[i] = layout.transform.GetChild(i);
+            tempList.Add(CreateRowArray(bricksInRow, rowLength, startingY - (offsetY * i)));
         }
-        row = layout.transform.GetChild(0).GetComponentsInChildren<Transform>();
-        vertical = new GameObject
-        {
-            name = "Bricks Group"
-        };
-        CreateSets();
-        layout.SetActive(false); //Disable UI used for layout
+        return tempList;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    private void CreateSets()
+    /// <summary>
+    /// Creates all the bricks in a row
+    /// </summary>
+    /// <param name="amount">How many bricks in the row</param>
+    /// <param name="rowLength">How long the row is</param>
+    /// <param name="y">Y co-ordinate in screen space</param>
+    /// <returns></returns>
+    private List<GameObject> CreateRowArray(int amount, float rowLength, float y)
     {
-        for (int i = 0; i < column.Length; i++)
+        List<GameObject> tempRow = new List<GameObject>(amount);
+        float x = rowLength / amount;
+        float startingPos = cam.WorldToScreenPoint(new Vector2(vRect.rect.xMin, 0)).x;
+        for (int i = 0; i < amount; i++)
         {
-            horizontal = new GameObject
-            {
-                name = "Row " + (i + 1)
-            };
-            horizontal.transform.SetParent(vertical.transform, true); //Parent under Bricks Group
-            horizontal.transform.position = column[0].transform.position; //Set initial position to match row used
-            CreateRows();
-            horizontal.transform.position = column[i].transform.position; //Reposition row to match BUG: Moves child transform as well
+            tempRow.Add(CreateBrick(new Vector2((x * (i + 1)) - (x / 2) + startingPos, y)));
         }
+        return tempRow;
     }
 
-    private void CreateRows()
+    /// <summary>
+    /// Create an individual brick at position
+    /// </summary>
+    /// <param name="position">Position of brick in screen space</param>
+    /// <returns></returns>
+    private GameObject CreateBrick(Vector2 position)
     {
-        for (int i = 1; i < row.Length; i++)
-        {
-            CreateSprite();
-            AlignBricks(row[i]);
-        }
+        GameObject g = Instantiate(sprite) as GameObject;
+        g.transform.position = ScreenToWorld(position) - Vector3.forward * cam.transform.position.z;
+        g.transform.localScale = spriteScale;
+        return g;
     }
 
-    private void CreateSprite()
+    /// <summary>
+    /// Calculate how big the bricks should be in a row
+    /// </summary>
+    /// <returns></returns>
+    private Vector2 GetBrickScale()
     {
-        brick = new GameObject();
-        brick.transform.SetParent(horizontal.transform, true);
-        brick.AddComponent<SpriteRenderer>();
-        //brick.AddComponent<BrickCollision>();
-        spRen = brick.GetComponent<SpriteRenderer>();
-        spRen.sprite = sprite;
-        spRen.drawMode = SpriteDrawMode.Sliced;
-        spRen.size = scale;
+        float gaps = (bricksInRow - 1) * padding; //determine how many pixels are gaps
+        float totalBrickLength = (rowLength - gaps) / bricksInRow; //calculate total pixel width required from single brick
+        totalBrickLength = ScreenToWorld(new Vector2(totalBrickLength + Screen.width / 2, 0)).x;
+        return new Vector2((totalBrickLength / spRen.size.x), (totalBrickLength / spRen.size.x));
     }
 
-    private void AlignBricks(Transform position)
+    /// <summary>
+    /// Shorthand method for ScreenToWorldPoint
+    /// </summary>
+    /// <param name="screenPos">Position in screen space to be converted</param>
+    /// <returns></returns>
+    private Vector3 ScreenToWorld(Vector3 screenPos)
     {
-        brick.AddComponent<AlignBrick>();
-        brick.GetComponent<AlignBrick>().LayoutTransform = position;
-        brick.GetComponent<AlignBrick>().Align();
-        brick.transform.localScale = new Vector3(scaleAmount, scaleAmount, 1);
+        return cam.ScreenToWorldPoint(screenPos);
     }
 }
