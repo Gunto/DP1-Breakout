@@ -733,6 +733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InMenu: 1
   InstructionsOpened: 0
+  Exited: 0
 --- !u!4 &783437866
 Transform:
   m_ObjectHideFlags: 0

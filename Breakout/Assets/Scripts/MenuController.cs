@@ -9,8 +9,9 @@ public class MenuController : MonoBehaviour
     public bool InMenu = true;
     public bool InstructionsOpened = false;
     public bool Exited = false;
+    public bool PlayAgainClicked = false;
 
-    public void ToggleMenu()
+	public void ToggleMenu()
     {
         if (SceneManager.GetActiveScene().name == "Main")
         {
@@ -36,6 +37,8 @@ public class MenuController : MonoBehaviour
             InstructionsOpened = false;
         }
     }
+
+
     public void ExitGame()
     {
         Application.Quit();
@@ -48,4 +51,14 @@ public class MenuController : MonoBehaviour
             Exited = false;
         }
     }
+
+	/// <summary>
+	/// When the user clicks the 'Play Again' button, the scene is reset
+	/// </summary>
+	public void PlayAgain()
+	{
+		if (!Application.isEditor) // Avoids crashes during testing due to how the Unity framework works
+			SceneManager.LoadScene("Main");
+		PlayAgainClicked = true;
+	}
 }
