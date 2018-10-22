@@ -45,6 +45,7 @@ public class CreateBricks : MonoBehaviour {
         spriteScale = GetBrickScale();
         offsetY = cam.WorldToScreenPoint(Vector3.Scale(spRen.size, spriteScale)).y + padding - (Screen.height / 2);
         bricks = CreateBrickRows(rows);
+        //Change the colors of the bricks
         GetComponent<BrickColor>().ChangeBrickColours();
     }
 
