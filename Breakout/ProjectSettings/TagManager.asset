@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Ball
   - Brick Manager
+  - UIController
   layers:
   - Default
   - TransparentFX
