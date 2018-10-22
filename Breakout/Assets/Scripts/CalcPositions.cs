@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 //vRect.rect.xMin and yMin are the bottom left of the rect in world space
 //Screen position origin is bottom left
