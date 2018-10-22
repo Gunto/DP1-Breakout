@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class CreateBricks : MonoBehaviour {
 
     private Camera cam;
@@ -13,6 +12,7 @@ public class CreateBricks : MonoBehaviour {
     private float rowLength;
     private RectTransform vRect;
     public GameObject sprite;
+    public SetRows setter;
     private SpriteRenderer spRen;
     private int margin, padding;
     private float startingY;
@@ -36,8 +36,8 @@ public class CreateBricks : MonoBehaviour {
         startingY = Screen.height * 0.85f;
         margin = 15;
         padding = 15;
-        rows = GetComponent<SetLayout>().rows;
-        bricksInRow = GetComponent<SetLayout>().bricksInRow;
+        rows = setter.Rows;
+        bricksInRow = setter.Bricks;
         spRen = sprite.GetComponent<SpriteRenderer>();
         screenPos = new Vector2(Screen.width - margin, 0);
         vRect.sizeDelta = ScreenToWorld(screenPos) * 2f;
@@ -45,6 +45,7 @@ public class CreateBricks : MonoBehaviour {
         spriteScale = GetBrickScale();
         offsetY = cam.WorldToScreenPoint(Vector3.Scale(spRen.size, spriteScale)).y + padding - (Screen.height / 2);
         bricks = CreateBrickRows(rows);
+        GetComponent<ColourBricks>().ChangeBrickColours();
     }
 
     //private void OnDrawGizmos()

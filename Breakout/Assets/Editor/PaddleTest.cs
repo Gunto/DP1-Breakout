@@ -4,104 +4,109 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class PaddleTest {
+public class PaddleTest
+{
 
-    [Test]
-    public void PaddleExist()
-    {
-        GameObject[] paddle  = GameObject.FindGameObjectsWithTag("Paddle");
-        bool expected = true;
-        bool actual = false;
+	//[Test]
+	//public void PaddleExist()
+	//{
+	//    GameObject[] paddle  = GameObject.FindGameObjectsWithTag("Paddle");
+	//    bool expected = true;
+	//    bool actual = false;
 
-        if(paddle.Length > 0)
-        {
-            actual = true;
-        }
+	//    if(paddle.Length > 0)
+	//    {
+	//        actual = true;
+	//    }
 
-        Assert.AreEqual(expected, actual);
-    }
+	//    Assert.AreEqual(expected, actual);
+	//}
 
-    [Test]
-    public void PaddleColliderExist()
-    {
-        GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
-        bool expected = true;
-        bool actual = false;
+	[Test]
+	public void PaddleColliderExist()
+	{
+		//GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
 
-        foreach (GameObject p in paddle)
-        {
-            if (p.GetComponent<BoxCollider2D>() != null)
-            {
-                actual = true;
-            }
-        }
+		GameObject paddle = Object.Instantiate(Resources.Load("Prefabs/Paddle")) as GameObject;
+		//bool expected = true;
+		//bool actual = false;
 
-        Assert.AreEqual(expected, actual);
-    }
+		//foreach (GameObject p in paddle)
+		//{
+		//    if (p.GetComponent<BoxCollider2D>() != null)
+		//    {
+		//        actual = true;
+		//    }
+		//}
 
-    [Test]
-    public void PaddleCameraExist()
-    {
-        GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
-        bool expected = true;
-        bool actual = false;
+		Assert.IsNotNull(paddle.GetComponent<BoxCollider2D>());
+	}
 
-        foreach (GameObject p in paddle)
-        {
-            if (p.GetComponent<PaddleMove>().mainCam != null)
-            {
-                actual = true;
-            }
-        }
+	[Test]
+	public void PaddleCameraExist()
+	{
+		//GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
+		GameObject paddle = Object.Instantiate(Resources.Load("Prefabs/Paddle")) as GameObject;
+		//bool expected = true;
+		//bool actual = false;
 
-        Assert.AreEqual(expected, actual);
-    }
+		//foreach (GameObject p in paddle)
+		//{
+		//    if (p.GetComponent<PaddleMove>().mainCam != null)
+		//    {
+		//        actual = true;
+		//    }
+		//}
 
-    [Test]
-    public void CorrectNumberofPaddles()
-    {
-        GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
-        int expected = 1;
-        int actual = paddle.Length;
+		Assert.IsNotNull(paddle.GetComponent<PaddleMove>().mainCam);
+		//Assert.AreEqual(expected, actual);
+	}
 
-        Assert.AreEqual(expected, actual);
-    }
+	//[Test]
+	//public void CorrectNumberofPaddles()
+	//{
+	//    GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
+	//    int expected = 1;
+	//    int actual = paddle.Length;
 
-    [Test]
-    public void PaddleCorrectSize()
-    {
-        GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
-        bool expected = true;
-        bool actual = false;
+	//    Assert.AreEqual(expected, actual);
+	//}
 
-        Vector3 size = new Vector3(1.0f, 1.0f, 1.0f);
+	[Test]
+	public void PaddleCorrectSize()
+	{
+		GameObject paddle = Object.Instantiate(Resources.Load("Prefabs/Paddle")) as GameObject;
+		//bool expected = true;
+		//bool actual = false;
 
-        foreach (GameObject p in paddle)
-        {
-            if (p.transform.localScale == size)
-            {
-                actual = true;
-            }
-        }
+		Vector3 size = new Vector3(1.0f, 1.0f, 1.0f);
 
-        Assert.AreEqual(expected, actual);
-    }
+		//foreach (GameObject p in paddle)
+		//{
+		//    if (p.transform.localScale == size)
+		//    {
+		//        actual = true;
+		//    }
+		//}
 
-    [Test]
-    public void PaddleIsVisible()
-    {
-        GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
-        bool expected = true;
-        bool actual = false;
+		Assert.AreEqual(paddle.transform.localScale, size);
+	}
 
-        foreach (GameObject p in paddle)
-        {
-            //NOTE: Will return true if editor camera can see the sprite
-            if (p.GetComponent<SpriteRenderer>().isVisible)
-            {
-                actual = true;
-            }
-        }
-        Assert.AreEqual(expected, actual);
-    }
+	//[Test]
+	//public void PaddleIsVisible()
+	//{
+	//	GameObject[] paddle = GameObject.FindGameObjectsWithTag("Paddle");
+	//	bool expected = true;
+	//	bool actual = false;
+
+	//	foreach (GameObject p in paddle)
+	//	{
+	//		//NOTE: Will return true if editor camera can see the sprite
+	//		if (p.GetComponent<SpriteRenderer>().isVisible)
+	//		{
+	//			actual = true;
+	//		}
+	//	}
+	//	Assert.AreEqual(expected, actual);
+	//}
 }
