@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Paddle
   - Brick
+  - Wall
+  - Ball
   - Brick Manager
   layers:
   - Default
@@ -16,7 +19,7 @@ TagManager:
   - 
   - 
   - Brick
-  - 
+  - Player
   - 
   - 
   - 

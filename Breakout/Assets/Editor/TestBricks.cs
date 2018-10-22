@@ -61,11 +61,11 @@ namespace Assets.Editor
             GameObject[] bricks = GameObject.FindGameObjectsWithTag("Brick");
             bool expected = true;
             bool actual = true;
-            Vector2 size = new Vector2(3.0f, 1.0f);
+            Vector3 size = new Vector3(1.0f, 1.0f, 1.0f);
 
             foreach (GameObject brick in bricks)
             {
-                if (brick.GetComponent<SpriteRenderer>().size != size)
+                if (brick.transform.localScale != size)
                 {
                     actual = false;
                 }
