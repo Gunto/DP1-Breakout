@@ -29,9 +29,9 @@ namespace Assets.Editor
         [Test]
         public void CorrectNumberofBricks()
         {
-            GameObject[] bricks = GameObject.FindGameObjectsWithTag("Brick");
-            int expected = 13;
-            int actual = bricks.Length;
+            GameObject brickParent = Object.Instantiate(Resources.Load("Prefabs/Bricks")) as GameObject;
+			int expected = 13;
+            int actual = brickParent.transform.childCount;
 
             Assert.AreEqual(expected, actual);
         }

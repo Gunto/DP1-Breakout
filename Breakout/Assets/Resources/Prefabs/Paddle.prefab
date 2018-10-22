@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6c4348fe9392447bb2621b47504e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
+  mainCam: {fileID: 20183825752050502, guid: e747fcc1694acc54d91d4968d63e4104, type: 2}
   spd: 30
 --- !u!212 &212466525736422460
 SpriteRenderer:
