@@ -21,7 +21,9 @@ public class HighScoreController : MonoBehaviour
 {
 	private int _score = 0;
 	private string _name;
+	private bool _gameOverTriggered = false;
 
+	public UIController UIController;
 	public List<Text> ScoreText;
 	public GameObject Menu;
 	public GameObject ScoresPanel;
@@ -30,6 +32,7 @@ public class HighScoreController : MonoBehaviour
 	public Text TextFailed;
 	public Text TextLoading;
 	public Text TextSend;
+	public Text TextScore;
 	public bool SuccessfullySentScore;
 
 	/// <summary>
@@ -99,13 +102,19 @@ public class HighScoreController : MonoBehaviour
 	/// </summary>
 	public void GameOver()
 	{
-		Menu.SetActive(true);
-		TextSend.enabled = false;
-		RetrievedScores.Clear();
-		foreach (Text text in ScoreText)
-			text.enabled = false;
+		if (!_gameOverTriggered)
+		{
+			_score = UIController.score;
+			TextScore.text = "Score: " + _score;
+			Menu.SetActive(true);
+			TextSend.enabled = false;
+			RetrievedScores.Clear();
+			foreach (Text text in ScoreText)
+				text.enabled = false;
 
-		StartCoroutine(FetchHighScores());
+			StartCoroutine(FetchHighScores());
+		}
+		_gameOverTriggered = true;
 	}
 
 	/// <summary>

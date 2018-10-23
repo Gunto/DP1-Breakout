@@ -22,7 +22,7 @@ public class MenuController : MonoBehaviour
         else
         {
             if (!Application.isEditor)
-                SceneManager.LoadScene("Level1");
+                SceneManager.LoadScene("Menu");
             InMenu = false;
         }
     }
