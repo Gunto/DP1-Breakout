@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
 
-    private int score = 0;
+    public int score = 0;
     public Text scoreText;
     // Use this for initialization
     void Start()

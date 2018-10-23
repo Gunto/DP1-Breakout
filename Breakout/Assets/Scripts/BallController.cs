@@ -7,8 +7,9 @@ public class BallController : MonoBehaviour {
 
 
     public float speed;
+	public HighScoreController highScoreController;
 
-    private Rigidbody2D rigid2D;
+	private Rigidbody2D rigid2D;
     private bool ballInPlay;
 
     // Use this for initialization
@@ -50,9 +51,7 @@ public class BallController : MonoBehaviour {
         }
         else if (other.gameObject.tag == "GameOver")
         {
-            SceneManager.LoadScene("Menu");
+			highScoreController.GameOver();
         }
     }
-
-
 }
