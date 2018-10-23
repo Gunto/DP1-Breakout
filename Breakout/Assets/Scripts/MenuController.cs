@@ -13,16 +13,16 @@ public class MenuController : MonoBehaviour
 
 	public void ToggleMenu()
     {
-        if (SceneManager.GetActiveScene().name == "Main")
+        if (SceneManager.GetActiveScene().name == "Menu")
         {
             if (!Application.isEditor)
-                SceneManager.LoadScene("Menu");
+                SceneManager.LoadScene("Level1");
             InMenu = true;
         }
         else
         {
             if (!Application.isEditor)
-                SceneManager.LoadScene("Main");
+                SceneManager.LoadScene("Level1");
             InMenu = false;
         }
     }
@@ -58,7 +58,7 @@ public class MenuController : MonoBehaviour
 	public void PlayAgain()
 	{
 		if (!Application.isEditor) // Avoids crashes during testing due to how the Unity framework works
-			SceneManager.LoadScene("Main");
+			SceneManager.LoadScene("Level1");
 		PlayAgainClicked = true;
 	}
 }

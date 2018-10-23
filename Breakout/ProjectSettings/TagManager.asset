@@ -10,6 +10,7 @@ TagManager:
   - Ball
   - Brick Manager
   - UIController
+  - GameOver
   layers:
   - Default
   - TransparentFX

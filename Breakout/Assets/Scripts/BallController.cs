@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallController : MonoBehaviour {
 
@@ -46,6 +47,10 @@ public class BallController : MonoBehaviour {
         {
             Vector2 newVelocity = Vector2.Reflect(rigid2D.velocity, other.contacts[0].normal);
             rigid2D.velocity = newVelocity;
+        }
+        else if (other.gameObject.tag == "GameOver")
+        {
+            SceneManager.LoadScene("Menu");
         }
     }
 
