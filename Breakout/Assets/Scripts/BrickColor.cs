@@ -12,8 +12,8 @@ public class BrickColor : MonoBehaviour {
     //public Color row6;
     //public Color row7;
     //public Color row8;
-    public Color[] rowColors = new Color[8];
-    private Color[] colours;
+    public Sprite[] rowSprites = new Sprite[8];
+    private Sprite[] sprites;
     private List<List<GameObject>> bricks = new List<List<GameObject>>();
 
 
@@ -23,12 +23,12 @@ public class BrickColor : MonoBehaviour {
     {
         //Get List of bricks
         bricks = GameObject.FindGameObjectWithTag("Brick Manager").GetComponent<CreateBricks>().Bricks;
-        //Create colour array for rows
-        colours = new Color[8];
-        for (int i = 0; i < colours.Length; i++)
+        //Create sprite array for rows
+        sprites = new Sprite[8];
+        for (int i = 0; i < sprites.Length; i++)
         {
-            //Add colours to array
-            colours[i] = rowColors[i]; //row1 = colour1 etc
+            //Add sprites to array
+            sprites[i] = rowSprites[i]; //row1 = colour1 etc
         }
         //Loop through List
         for (int i = 0; i < bricks.Count; i++)
@@ -36,8 +36,8 @@ public class BrickColor : MonoBehaviour {
             //Loop through row
             foreach (GameObject brick in bricks[i])
             {
-                //Assign colour
-                brick.GetComponent<SpriteRenderer>().color = colours[i];
+                //Assign sprite
+                brick.GetComponent<SpriteRenderer>().sprite = sprites[i];
             }
         }
     }
