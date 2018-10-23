@@ -9,7 +9,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 // Returns whether the provided name matches the pattern of 3 alphabetic characters
 const validName = (name) => /^[A-Z]{3}$/.test(name);
 // Returns whether the provided score is a number above zero
