@@ -6,6 +6,8 @@ public class PaddleMove : MonoBehaviour {
 
     public Camera mainCam;
     public float spd;
+    private Collider2D collider2D;
+    private float paddleHalfWidth;
 
     private float camHeight, camWidth;
 
@@ -14,12 +16,14 @@ public class PaddleMove : MonoBehaviour {
         //mainCam.
         camHeight = 2f * mainCam.orthographicSize;
         camWidth = camHeight * mainCam.aspect;
+        collider2D = GetComponent<BoxCollider2D>();
+        paddleHalfWidth = (collider2D.bounds.size.x / 2);
     }
 	
 	// Update is called once per frame
 	void Update () {
         //Debug.LogError(camWidth);
-        if (gameObject.transform.position.x < (camWidth / 2))
+        if (gameObject.transform.position.x < ((camWidth / 2 ) - paddleHalfWidth))
             {
                 if (Input.GetKey(KeyCode.RightArrow))
                 {
@@ -27,7 +31,7 @@ public class PaddleMove : MonoBehaviour {
                 }
             }
 
-        if (gameObject.transform.position.x > (-camWidth / 2))
+        if (gameObject.transform.position.x > (-camWidth / 2) + paddleHalfWidth)
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {

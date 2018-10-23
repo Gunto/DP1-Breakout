@@ -12,7 +12,7 @@ public class CreateBricks : MonoBehaviour {
     private float rowLength;
     private RectTransform vRect;
     public GameObject sprite;
-    public SetRows setter;
+    //public SetRows setter;
     private SpriteRenderer spRen;
     private int margin, padding;
     private float startingY;
@@ -36,8 +36,10 @@ public class CreateBricks : MonoBehaviour {
         startingY = Screen.height * 0.85f;
         margin = 15;
         padding = 15;
-        rows = setter.Rows;
-        bricksInRow = setter.Bricks;
+        //rows = setter.Rows;
+        //bricksInRow = setter.Bricks;
+        rows = GetComponent<SetLayout>().rows;
+        bricksInRow = GetComponent<SetLayout>().bricksInRow;
         spRen = sprite.GetComponent<SpriteRenderer>();
         screenPos = new Vector2(Screen.width - margin, 0);
         vRect.sizeDelta = ScreenToWorld(screenPos) * 2f;
